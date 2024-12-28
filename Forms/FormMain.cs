@@ -1,4 +1,5 @@
 using System.Drawing.Imaging;
+using Newtonsoft.Json;
 using UML_Diagram_Editor.Entities;
 using UML_Diagram_Editor.Forms;
 
@@ -6,7 +7,7 @@ namespace UML_Diagram_Editor
 {
     public partial class FormMain : Form
     {
-        private readonly Canvas _canvas;
+        private Canvas _canvas;
 
         public FormMain()
         {
@@ -78,6 +79,47 @@ namespace UML_Diagram_Editor
                 _canvas.Draw(g);
 
                 bmp.Save(saveFileDialog.FileName, ImageFormat.Png);
+            }
+        }
+
+        private void buttonSaveJson_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                FileName = "diagram",
+                DefaultExt = ".json",
+                Filter = "JSON files (*.json)|*.json"
+            };
+
+            var result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string data = JsonConvert.SerializeObject(_canvas, Formatting.Indented);
+                File.WriteAllText(saveFileDialog.FileName, data);
+            }
+        }
+
+        private void buttonLoadJson_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                DefaultExt = ".json",
+                Filter = "JSON files (*.json)|*.json"
+            };
+
+            var result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    string fileContent = File.ReadAllText(openFileDialog.FileName);
+                    _canvas = JsonConvert.DeserializeObject<Canvas>(fileContent);
+                    pictureBox.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error reading file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

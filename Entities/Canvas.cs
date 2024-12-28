@@ -1,29 +1,33 @@
-﻿namespace UML_Diagram_Editor.Entities
+﻿using Newtonsoft.Json;
+
+namespace UML_Diagram_Editor.Entities
 {
     public class Canvas
     {
+        [JsonIgnore]
         public Selection? Selection { get; private set; }
 
-        private List<Box> _boxes;
+        [JsonProperty]
+        public List<Box> Boxes { get; private set; }
 
         public Canvas()
         {
-            _boxes = new List<Box>();
+            Boxes = new List<Box>();
             Selection = null;
         }
 
         public void Draw(Graphics g)
         {
-            foreach (Box box in _boxes)
+            foreach (Box box in Boxes)
                 box.Draw(g);
         }
 
         public void Select(int x, int y)
         {
             Unselect();
-            for (int i = 0; i < _boxes.Count; i++)
+            for (int i = 0; i < Boxes.Count; i++)
             {
-                Box box = _boxes[i];
+                Box box = Boxes[i];
                 if (box.IsInCollisionWithCorner(x, y))
                 {
                     Selection = new ResizeSelection(box, x, y);
@@ -59,7 +63,7 @@
         public void AddBox()
         {
             var box = new Box(250, 250);
-            _boxes.Add(box);
+            Boxes.Add(box);
         }
 
         public void RemoveBox()
@@ -67,7 +71,7 @@
             if (Selection == null)
                 return;
 
-            _boxes.Remove(Selection.SelectedBox);
+            Boxes.Remove(Selection.SelectedBox);
             Unselect();
         }
     }

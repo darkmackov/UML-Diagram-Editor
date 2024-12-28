@@ -1,16 +1,24 @@
-﻿namespace UML_Diagram_Editor.Entities
+﻿using Newtonsoft.Json;
+
+namespace UML_Diagram_Editor.Entities
 {
     public class Box
     {
+        [JsonProperty]
         public int PositionX { get; private set; }
+        [JsonProperty]
         public int PositionY { get; private set; }
+        [JsonProperty]
         public int Width { get; private set; }
+        [JsonProperty]
         public int Height { get; private set; }
         public string Title { get; set; }
         public List<TextContent> Variables { get; set; }
         public List<TextContent> Methods { get; set; }
 
+        [JsonProperty]
         public int MinWidth { get; private set; }
+        [JsonProperty]
         public int MinHeight { get; private set; }
         public int MaxWidth => 240 + MinWidth;
         public int MaxHeight => 280 + MinHeight;

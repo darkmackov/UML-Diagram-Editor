@@ -35,6 +35,8 @@
             buttonEditBox = new Button();
             buttonDeleteBox = new Button();
             buttonExportPng = new Button();
+            buttonSaveJson = new Button();
+            buttonLoadJson = new Button();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel2.SuspendLayout();
@@ -77,14 +79,18 @@
             tableLayoutPanel2.Controls.Add(buttonEditBox, 0, 1);
             tableLayoutPanel2.Controls.Add(buttonDeleteBox, 0, 2);
             tableLayoutPanel2.Controls.Add(buttonExportPng, 0, 4);
+            tableLayoutPanel2.Controls.Add(buttonSaveJson, 0, 5);
+            tableLayoutPanel2.Controls.Add(buttonLoadJson, 0, 6);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 5;
+            tableLayoutPanel2.RowCount = 7;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.Size = new Size(194, 755);
             tableLayoutPanel2.TabIndex = 1;
@@ -125,13 +131,35 @@
             // buttonExportPng
             // 
             buttonExportPng.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            buttonExportPng.Location = new Point(3, 723);
+            buttonExportPng.Location = new Point(3, 643);
             buttonExportPng.Name = "buttonExportPng";
             buttonExportPng.Size = new Size(188, 23);
             buttonExportPng.TabIndex = 3;
             buttonExportPng.Text = "Export to PNG";
             buttonExportPng.UseVisualStyleBackColor = true;
             buttonExportPng.Click += buttonExportPng_Click;
+            // 
+            // buttonSaveJson
+            // 
+            buttonSaveJson.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            buttonSaveJson.Location = new Point(3, 683);
+            buttonSaveJson.Name = "buttonSaveJson";
+            buttonSaveJson.Size = new Size(188, 23);
+            buttonSaveJson.TabIndex = 4;
+            buttonSaveJson.Text = "Save as JSON";
+            buttonSaveJson.UseVisualStyleBackColor = true;
+            buttonSaveJson.Click += buttonSaveJson_Click;
+            // 
+            // buttonLoadJson
+            // 
+            buttonLoadJson.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            buttonLoadJson.Location = new Point(3, 723);
+            buttonLoadJson.Name = "buttonLoadJson";
+            buttonLoadJson.Size = new Size(188, 23);
+            buttonLoadJson.TabIndex = 5;
+            buttonLoadJson.Text = "Load from JSON";
+            buttonLoadJson.UseVisualStyleBackColor = true;
+            buttonLoadJson.Click += buttonLoadJson_Click;
             // 
             // FormMain
             // 
@@ -157,5 +185,7 @@
         private Button buttonEditBox;
         private Button buttonDeleteBox;
         private Button buttonExportPng;
+        private Button buttonSaveJson;
+        private Button buttonLoadJson;
     }
 }
