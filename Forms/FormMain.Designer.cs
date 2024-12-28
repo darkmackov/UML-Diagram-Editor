@@ -34,6 +34,7 @@
             buttonAddBox = new Button();
             buttonEditBox = new Button();
             buttonDeleteBox = new Button();
+            buttonExportPng = new Button();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel2.SuspendLayout();
@@ -75,14 +76,16 @@
             tableLayoutPanel2.Controls.Add(buttonAddBox, 0, 0);
             tableLayoutPanel2.Controls.Add(buttonEditBox, 0, 1);
             tableLayoutPanel2.Controls.Add(buttonDeleteBox, 0, 2);
+            tableLayoutPanel2.Controls.Add(buttonExportPng, 0, 4);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowCount = 5;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.Size = new Size(194, 755);
             tableLayoutPanel2.TabIndex = 1;
             // 
@@ -119,6 +122,17 @@
             buttonDeleteBox.UseVisualStyleBackColor = true;
             buttonDeleteBox.Click += buttonDeleteBox_Click;
             // 
+            // buttonExportPng
+            // 
+            buttonExportPng.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            buttonExportPng.Location = new Point(3, 723);
+            buttonExportPng.Name = "buttonExportPng";
+            buttonExportPng.Size = new Size(188, 23);
+            buttonExportPng.TabIndex = 3;
+            buttonExportPng.Text = "Export to PNG";
+            buttonExportPng.UseVisualStyleBackColor = true;
+            buttonExportPng.Click += buttonExportPng_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -142,5 +156,6 @@
         private Button buttonAddBox;
         private Button buttonEditBox;
         private Button buttonDeleteBox;
+        private Button buttonExportPng;
     }
 }

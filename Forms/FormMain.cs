@@ -1,3 +1,4 @@
+using System.Drawing.Imaging;
 using UML_Diagram_Editor.Entities;
 
 namespace UML_Diagram_Editor
@@ -19,6 +20,9 @@ namespace UML_Diagram_Editor
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left)
+                return;
+
             if (_canvas.Selection != null)
             {
                 _canvas.Unselect();
@@ -53,5 +57,24 @@ namespace UML_Diagram_Editor
             pictureBox.Refresh();
         }
 
+        private void buttonExportPng_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                FileName = "diagram",
+                DefaultExt = ".png",
+                Filter = "PNG files (*.png)|*.png"
+            };
+
+            var result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Bitmap bmp = new Bitmap(pictureBox.Width, pictureBox.Height);
+                Graphics g = Graphics.FromImage(bmp);
+                _canvas.Draw(g);
+
+                bmp.Save(saveFileDialog.FileName, ImageFormat.Png);
+            }
+        }
     }
 }
