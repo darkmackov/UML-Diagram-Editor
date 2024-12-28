@@ -1,5 +1,6 @@
 using System.Drawing.Imaging;
 using UML_Diagram_Editor.Entities;
+using UML_Diagram_Editor.Forms;
 
 namespace UML_Diagram_Editor
 {
@@ -48,7 +49,10 @@ namespace UML_Diagram_Editor
 
         private void buttonEditBox_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("NOT IMPLEMENTED!");
+            if (_canvas.Selection == null)
+                return;
+            Form form = new FormEditBox(_canvas.Selection.SelectedBox);
+            form.ShowDialog();
         }
 
         private void buttonDeleteBox_Click(object sender, EventArgs e)
