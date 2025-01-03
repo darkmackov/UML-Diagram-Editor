@@ -8,13 +8,14 @@
 
         public override void Move(int x, int y)
         {
-            int dx = SelectedBox.Width - _relativeX;
-            int dy = SelectedBox.Height - _relativeY;
+            int dx = SelectedObj.Width - _relativeX;
+            int dy = SelectedObj.Height - _relativeY;
 
-            SelectedBox.Resize(x - SelectedBox.PositionX + dx, y - SelectedBox.PositionY + dy);
+            Box selectedBox = (Box)SelectedObj;
+            selectedBox.Resize(x - SelectedObj.X + dx, y - SelectedObj.Y + dy);
 
-            _relativeX = SelectedBox.Width - dx;
-            _relativeY = SelectedBox.Height - dy;
+            _relativeX = SelectedObj.Width - dx;
+            _relativeY = SelectedObj.Height - dy;
         }
     }
 }

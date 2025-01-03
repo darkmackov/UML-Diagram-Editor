@@ -2,18 +2,10 @@
 
 namespace UML_Diagram_Editor.Entities
 {
-    public class Box
+    public class Box : DrawableElement
     {
-        [JsonProperty]
-        public int PositionX { get; private set; }
-        [JsonProperty]
-        public int PositionY { get; private set; }
-        [JsonProperty]
-        public int Width { get; private set; }
-        [JsonProperty]
-        public int Height { get; private set; }
         public string Title { get; set; }
-        public List<TextContent> Variables { get; set; }
+        public List<TextContent> Properties { get; set; }
         public List<TextContent> Methods { get; set; }
 
         [JsonProperty]
@@ -25,38 +17,27 @@ namespace UML_Diagram_Editor.Entities
 
         private Pen _color;
 
-        public Box(int x, int y)
+        public Box(int x, int y) 
+            : base(x, y)
         {
-            PositionX = x;
-            PositionY = y;
-
-            Width = 80;
-            Height = 80;
-
             MinWidth = 80;
             MinHeight = 40;
 
             Title = "Class";
-            Variables = new List<TextContent>();
+            Properties = new List<TextContent>();
             Methods = new List<TextContent>();
 
             _color = Pens.Black;
         }
 
-        public void Select()
+        public override void Select()
         {
             _color = Pens.Blue;
         }
 
-        public void Unselect()
+        public override void Unselect()
         {
             _color = Pens.Black;
-        }
-
-        public void Move(int x, int y)
-        {
-            PositionX = x;
-            PositionY = y;
         }
 
         public void Resize(int w, int h)
@@ -79,19 +60,18 @@ namespace UML_Diagram_Editor.Entities
 
         public void UpdateMinSize()
         {
-            int maxVarLength = Variables.Any() ? Variables.Max(v => v.Content.Length) : 0;
+            int maxVarLength = Properties.Any() ? Properties.Max(v => v.Content.Length) : 0;
             int maxMetLength = Methods.Any() ? Methods.Max(m => m.Content.Length) : 0;
 
             int maxLength = Math.Max(Math.Max(maxVarLength, maxMetLength), Title.Length);
 
             MinWidth = (maxLength + 2) * 7;
-            MinHeight = (Variables.Count + Methods.Count + 2) * 20;
+            MinHeight = (Properties.Count + Methods.Count + 2) * 20;
         }
 
-
-        public void Draw(Graphics g)
+        public override void Draw(Graphics g)
         {
-            g.TranslateTransform(PositionX, PositionY);
+            g.TranslateTransform(X, Y);
             g.FillRectangle(Brushes.White, 0, 0, Width, Height);
             g.DrawRectangle(_color, 0, 0, Width, Height);
 
@@ -99,10 +79,10 @@ namespace UML_Diagram_Editor.Entities
             g.DrawLine(Pens.Black, 0, 25, Width, 25);
 
             int offset = 10;
-            foreach (var variable in Variables)
+            foreach (var property in Properties)
             {
                 offset += 20;
-                g.DrawString(variable.Content, new Font("Arial", 10), Brushes.Black, 5, offset);
+                g.DrawString(property.Content, new Font("Arial", 10), Brushes.Black, 5, offset);
             }
 
             g.DrawLine(Pens.Black, 0, offset + 20, Width, offset + 20);
@@ -118,16 +98,29 @@ namespace UML_Diagram_Editor.Entities
             g.ResetTransform();
         }
 
-        public bool IsInCollision(int x, int y)
-        {
-            return x > PositionX && x <= PositionX + Width
-                                 && y > PositionY && y <= PositionY + Height;
-        }
-
         public bool IsInCollisionWithCorner(int x, int y)
         {
-            return x > (PositionX + Width - 10) && x <= PositionX + Width
-                                                && y > (PositionY + Height - 10) && y <= PositionY + Height;
+            return x > (X + Width - 10) && x <= X + Width
+                                                && y > (Y + Height - 10) && y <= Y + Height;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            if (obj is not Box other)
+                return false;
+
+            return Title == other.Title &&
+                   X == other.X &&
+                   Y == other.Y &&
+                   Width == other.Width &&
+                   Height == other.Height &&
+                   MinWidth == other.MinWidth &&
+                   MinHeight == other.MinHeight &&
+                   Properties.SequenceEqual(other.Properties) &&
+                   Methods.SequenceEqual(other.Methods);
         }
     }
 }

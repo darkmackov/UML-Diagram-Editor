@@ -2,26 +2,19 @@
 {
     public abstract class Selection
     {
-        public Box SelectedBox { get; protected set; }
+        public DrawableElement SelectedObj { get; protected set; }
         protected int _relativeX;
         protected int _relativeY;
 
-        protected Selection(Box box, int x, int y)
+        protected Selection(DrawableElement obj, int x, int y)
         {
-            SelectedBox = box;
-            _relativeX = x - box.PositionX;
-            _relativeY = y - box.PositionY;
+            SelectedObj = obj;
+            _relativeX = x - obj.X;
+            _relativeY = y - obj.Y;
         }
 
-        public void Select()
-        {
-            SelectedBox.Select();
-        }
-
-        public void Unselect()
-        {
-            SelectedBox.Unselect();
-        }
+        public void Select() => SelectedObj.Select();
+        public void Unselect() => SelectedObj.Unselect();
 
         public abstract void Move(int x, int y);
     }

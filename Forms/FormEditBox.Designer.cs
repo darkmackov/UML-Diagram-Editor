@@ -33,7 +33,7 @@
             dataGridViewMethods = new DataGridView();
             dataGridViewVariables = new DataGridView();
             labelMethods = new Label();
-            labelVariables = new Label();
+            labelProperties = new Label();
             tableLayoutPanel3 = new TableLayoutPanel();
             textBoxTitle = new TextBox();
             labelTitle = new Label();
@@ -71,7 +71,7 @@
             tableLayoutPanel2.Controls.Add(dataGridViewMethods, 0, 3);
             tableLayoutPanel2.Controls.Add(dataGridViewVariables, 0, 1);
             tableLayoutPanel2.Controls.Add(labelMethods, 0, 2);
-            tableLayoutPanel2.Controls.Add(labelVariables, 0, 0);
+            tableLayoutPanel2.Controls.Add(labelProperties, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(403, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -115,15 +115,15 @@
             labelMethods.TabIndex = 2;
             labelMethods.Text = "Methods";
             // 
-            // labelVariables
+            // labelProperties
             // 
-            labelVariables.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            labelVariables.AutoSize = true;
-            labelVariables.Location = new Point(3, 2);
-            labelVariables.Name = "labelVariables";
-            labelVariables.Size = new Size(388, 15);
-            labelVariables.TabIndex = 3;
-            labelVariables.Text = "Variables";
+            labelProperties.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            labelProperties.AutoSize = true;
+            labelProperties.Location = new Point(3, 2);
+            labelProperties.Name = "labelProperties";
+            labelProperties.Size = new Size(388, 15);
+            labelProperties.TabIndex = 3;
+            labelProperties.Text = "Properties";
             // 
             // tableLayoutPanel3
             // 
@@ -210,7 +210,7 @@
         private Button buttonCancel;
         private Button buttonSave;
         private Label labelMethods;
-        private Label labelVariables;
+        private Label labelProperties;
         private Label labelTitle;
     }
 }

@@ -33,10 +33,12 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             buttonAddBox = new Button();
             buttonEditBox = new Button();
-            buttonDeleteBox = new Button();
+            buttonDeleteSelected = new Button();
             buttonExportPng = new Button();
             buttonSaveJson = new Button();
             buttonLoadJson = new Button();
+            buttonAddLine = new Button();
+            buttonExportCode = new Button();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             tableLayoutPanel2.SuspendLayout();
@@ -70,6 +72,7 @@
             pictureBox.Paint += pictureBox_Paint;
             pictureBox.MouseDown += pictureBox_MouseDown;
             pictureBox.MouseMove += pictureBox_MouseMove;
+            pictureBox.MouseUp += pictureBox_MouseUp;
             // 
             // tableLayoutPanel2
             // 
@@ -77,18 +80,22 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(buttonAddBox, 0, 0);
             tableLayoutPanel2.Controls.Add(buttonEditBox, 0, 1);
-            tableLayoutPanel2.Controls.Add(buttonDeleteBox, 0, 2);
-            tableLayoutPanel2.Controls.Add(buttonExportPng, 0, 4);
-            tableLayoutPanel2.Controls.Add(buttonSaveJson, 0, 5);
-            tableLayoutPanel2.Controls.Add(buttonLoadJson, 0, 6);
+            tableLayoutPanel2.Controls.Add(buttonDeleteSelected, 0, 2);
+            tableLayoutPanel2.Controls.Add(buttonExportPng, 0, 6);
+            tableLayoutPanel2.Controls.Add(buttonSaveJson, 0, 7);
+            tableLayoutPanel2.Controls.Add(buttonLoadJson, 0, 8);
+            tableLayoutPanel2.Controls.Add(buttonAddLine, 0, 3);
+            tableLayoutPanel2.Controls.Add(buttonExportCode, 0, 5);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 7;
+            tableLayoutPanel2.RowCount = 9;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
@@ -117,16 +124,16 @@
             buttonEditBox.UseVisualStyleBackColor = true;
             buttonEditBox.Click += buttonEditBox_Click;
             // 
-            // buttonDeleteBox
+            // buttonDeleteSelected
             // 
-            buttonDeleteBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            buttonDeleteBox.Location = new Point(3, 88);
-            buttonDeleteBox.Name = "buttonDeleteBox";
-            buttonDeleteBox.Size = new Size(188, 23);
-            buttonDeleteBox.TabIndex = 2;
-            buttonDeleteBox.Text = "Delete Box";
-            buttonDeleteBox.UseVisualStyleBackColor = true;
-            buttonDeleteBox.Click += buttonDeleteBox_Click;
+            buttonDeleteSelected.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            buttonDeleteSelected.Location = new Point(3, 88);
+            buttonDeleteSelected.Name = "buttonDeleteSelected";
+            buttonDeleteSelected.Size = new Size(188, 23);
+            buttonDeleteSelected.TabIndex = 2;
+            buttonDeleteSelected.Text = "Delete Selected";
+            buttonDeleteSelected.UseVisualStyleBackColor = true;
+            buttonDeleteSelected.Click += buttonDeleteSelected_Click;
             // 
             // buttonExportPng
             // 
@@ -161,6 +168,28 @@
             buttonLoadJson.UseVisualStyleBackColor = true;
             buttonLoadJson.Click += buttonLoadJson_Click;
             // 
+            // buttonAddLine
+            // 
+            buttonAddLine.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            buttonAddLine.Location = new Point(3, 128);
+            buttonAddLine.Name = "buttonAddLine";
+            buttonAddLine.Size = new Size(188, 23);
+            buttonAddLine.TabIndex = 6;
+            buttonAddLine.Text = "Add Line";
+            buttonAddLine.UseVisualStyleBackColor = true;
+            buttonAddLine.Click += buttonAddLine_Click;
+            // 
+            // buttonExportCode
+            // 
+            buttonExportCode.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            buttonExportCode.Location = new Point(3, 603);
+            buttonExportCode.Name = "buttonExportCode";
+            buttonExportCode.Size = new Size(188, 23);
+            buttonExportCode.TabIndex = 7;
+            buttonExportCode.Text = "Export as C# Code";
+            buttonExportCode.UseVisualStyleBackColor = true;
+            buttonExportCode.Click += buttonExportCode_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -183,9 +212,11 @@
         private TableLayoutPanel tableLayoutPanel2;
         private Button buttonAddBox;
         private Button buttonEditBox;
-        private Button buttonDeleteBox;
+        private Button buttonDeleteSelected;
         private Button buttonExportPng;
         private Button buttonSaveJson;
         private Button buttonLoadJson;
+        private Button buttonAddLine;
+        private Button buttonExportCode;
     }
 }

@@ -8,6 +8,8 @@ namespace UML_Diagram_Editor
     public partial class FormMain : Form
     {
         private Canvas _canvas;
+        private bool isDragging = false;
+        private bool _trackLastSelectedBoxes = true; //TODO: Add checkbox to enable/disable tracking
 
         public FormMain()
         {
@@ -22,24 +24,28 @@ namespace UML_Diagram_Editor
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
-                return;
-
             if (_canvas.Selection != null)
             {
                 _canvas.Unselect();
             }
-            else
-            {
-                _canvas.Select(e.X, e.Y);
-                pictureBox.Refresh();
-            }
+
+            isDragging = true;
+            _canvas.Select(e.X, e.Y);
+            pictureBox.Refresh();
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            _canvas.Move(e.X, e.Y);
-            pictureBox.Refresh();
+            if (isDragging)
+            {
+                _canvas.Move(e.X, e.Y);
+                pictureBox.Refresh();
+            }
+        }
+
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
         }
 
         public void buttonAddBox_Click(object sender, EventArgs e)
@@ -52,14 +58,37 @@ namespace UML_Diagram_Editor
         {
             if (_canvas.Selection == null)
                 return;
-            Form form = new FormEditBox(_canvas.Selection.SelectedBox);
-            form.ShowDialog();
+
+            if (_canvas.Selection.SelectedObj is Box box)
+            {
+                Form form = new FormEditBox(box);
+                form.ShowDialog();
+            }
         }
 
-        private void buttonDeleteBox_Click(object sender, EventArgs e)
+        private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
-            _canvas.RemoveBox();
+            _canvas.RemoveSelected();
             pictureBox.Refresh();
+        }
+
+        private void buttonExportCode_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Not implemented!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                FileName = "diagramCode",
+                DefaultExt = ".cs",
+                Filter = "C# Files (*.cs)|*.cs|Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
+            };
+
+            var result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                //TODO: Export code
+            }
         }
 
         private void buttonExportPng_Click(object sender, EventArgs e)
@@ -114,6 +143,7 @@ namespace UML_Diagram_Editor
                 {
                     string fileContent = File.ReadAllText(openFileDialog.FileName);
                     _canvas = JsonConvert.DeserializeObject<Canvas>(fileContent);
+                    _canvas.ReconnectLines();
                     pictureBox.Refresh();
                 }
                 catch (Exception ex)
@@ -121,6 +151,15 @@ namespace UML_Diagram_Editor
                     MessageBox.Show($"Error reading file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void buttonAddLine_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Not implemented!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+
+            _canvas.AddLine(LineType.Association);
+            pictureBox.Refresh();
         }
     }
 }

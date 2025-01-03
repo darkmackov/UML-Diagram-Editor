@@ -6,7 +6,7 @@ namespace UML_Diagram_Editor.Forms
     public partial class FormEditBox : Form
     {
         private Box _editedBox;
-        private BindingList<TextContent> _variables = new();
+        private BindingList<TextContent> _properties = new();
         private BindingList<TextContent> _methods = new();
 
         public FormEditBox(Box box)
@@ -15,20 +15,20 @@ namespace UML_Diagram_Editor.Forms
             InitializeComponent();
 
             LoadBoxData();
-            dataGridViewVariables.DataSource = _variables;
+            dataGridViewVariables.DataSource = _properties;
             dataGridViewMethods.DataSource = _methods;
         }
 
         public void LoadBoxData()
         {
-            _variables = new BindingList<TextContent>(_editedBox.Variables.ToList());
+            _properties = new BindingList<TextContent>(_editedBox.Properties.ToList());
             _methods = new BindingList<TextContent>(_editedBox.Methods.ToList());
             textBoxTitle.Text = _editedBox.Title;
         }
 
         public void SaveBoxData()
         {
-            _editedBox.Variables = new List<TextContent>(_variables);
+            _editedBox.Properties = new List<TextContent>(_properties);
             _editedBox.Methods = new List<TextContent>(_methods);
             _editedBox.Title = textBoxTitle.Text;
         }
